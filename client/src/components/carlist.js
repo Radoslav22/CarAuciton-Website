@@ -51,7 +51,7 @@ export default function ComplexGrid() {
 
 
         <Paper
-
+          key={car.id}
           sx={{
             p: 2,
             margin: 'auto',
