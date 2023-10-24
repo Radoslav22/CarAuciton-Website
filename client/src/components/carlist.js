@@ -7,13 +7,10 @@ import ButtonBase from '@mui/material/ButtonBase';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Carimg from '../assets/car.jpg'
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
-import { Box } from '@mui/material';
 import AvTimerIcon from '@mui/icons-material/AvTimer';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import Divider from '@mui/material-next/Divider';
+import Chip from '@mui/material/Chip';
 
 
 
@@ -53,6 +50,7 @@ export default function ComplexGrid() {
   };
   return (
     <div>
+
       {cars.map((car) => (
 
         <Paper key={car.id} sx={{
@@ -84,14 +82,15 @@ export default function ComplexGrid() {
                 <Grid item xs container spacing={2}>
                   <Grid xs={12} md={8} sx={{ padding: "2px" }}>
                     <Grid spacing={2} container sx={{ width: "100%", display: "flex", flexWrap: "wrap", boxSizing: "border-box", marginTop: "10px", marginRight: "25px" }}>
-                      <Grid item>
-                        <Typography sx={{ background: "yellow" }}>Category N</Typography>
+                      <Grid item >
+                        <Chip label={`CATEGORY ${car.category}`} sx={{ background: "orange", color: "white", borderRadius: "6px" }}>
+                        </Chip>
                       </Grid>
                       <Grid item>
                         L
                       </Grid>
                       <Grid item>
-                        Andover
+                        {car.uk_town}
                       </Grid>
                     </Grid>
                     <Typography variant='h6' sx={{
@@ -100,14 +99,14 @@ export default function ComplexGrid() {
                       fontWeight: 500,
                       lineHeight: 1.6
                     }}>
-                      {car.year} {car.mark} {car.model}, {car.color}
+                      {car.year} {car.mark} {car.model} {car.cc}cc, {car.color}
                     </Typography>
                   </Grid>
                   <Grid item xs={12} md={4} sx={{ padding: "8px" }}>
                     <Grid container sx={{ width: "100%", display: "flex", flexWrap: "wrap", boxSizing: "border-box" }}>
                       <Grid xs={6} sm={6} md={12}>
                         <AvTimerIcon sx={{ display: "inline-block", fontSize: "20px", paddingLeft: "2px" }} />
-                        <span style={{ marginLeft: "5px" }}>22,555</span>
+                        <span style={{ marginLeft: "5px" }}>{car.mileage}</span>
                       </Grid>
                       <Grid xs={6} sm={6} md={12}>
                         <CheckBoxIcon sx={{ display: "inline-block", fontSize: "20px", paddingLeft: "2px" }} />
@@ -119,7 +118,7 @@ export default function ComplexGrid() {
                       </Grid>
                       <Grid xs={6} sm={6} md={12}>
                         <CheckBoxIcon sx={{ display: "inline-block", fontSize: "20px", paddingLeft: "2px" }} />
-                        <span>Ref:12211</span>
+                        <span>Ref:{car.reference}</span>
 
                       </Grid>
 
@@ -162,7 +161,8 @@ export default function ComplexGrid() {
 
         </Paper>
 
-      ))}
+      ))
+      }
 
 
 
