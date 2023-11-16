@@ -11,7 +11,8 @@ import Button from '@mui/material/Button';
 import AvTimerIcon from '@mui/icons-material/AvTimer';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Chip from '@mui/material/Chip';
-
+import TablePagination from '@mui/material/TablePagination';
+import { Box } from '@mui/material';
 
 
 
@@ -24,6 +25,18 @@ const Img = styled('img')({
 
 export default function ComplexGrid() {
   const [cars, setCars] = useState([]);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
 
   useEffect(() => {
     const fetchAllCars = async () => {
@@ -50,8 +63,31 @@ export default function ComplexGrid() {
   };
   return (
     <div>
+      <Box sx={{
+        p: 2,
+        margin: 'auto',
+        marginTop: 2,
+        marginBottom: 2,
+        maxWidth: "80%",
+        flexGrow: 1,
+        backgroundColor: (theme) =>
+          theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+      }}>
+        <Typography variant='h4'>
+          {cars.length} Results
+        </Typography>
+        <TablePagination
+          component="div"
+          count={cars.length}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
 
-      {cars.map((car) => (
+        />
+      </Box>
+
+      {cars.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((car) => (
 
         <Paper key={car.id} sx={{
           p: 2,
